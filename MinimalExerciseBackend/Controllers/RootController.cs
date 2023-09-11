@@ -37,6 +37,7 @@ namespace MinimalExerciseBackend.Controllers
             if (datiList != null && datiList.data.contents.Any(r=>r.contentId==contentId))
             {
                 datiList.data.contents.RemoveAll(r => r.contentId == contentId);
+
                 return Ok(datiList);
             }
             else

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using MinimalExerciseBackend;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -10,7 +11,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddScoped<Root>();
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddPolicy(
+            name: "AllowOrigin",
+            builder => {
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+            });
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +39,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 
-
+app.UseCors("AllowOrigin");
 
 app.Run();
