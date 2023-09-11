@@ -21,7 +21,7 @@ namespace MinimalExerciseBackend.Controllers
         }
 
 
-        [HttpGet(Name = "GetAllData")]
+        [HttpGet("GetAllData")]
         public IActionResult GetAllData()
         {
 
@@ -31,10 +31,10 @@ namespace MinimalExerciseBackend.Controllers
                 return NotFound();
         }
 
-        [HttpDelete(Name = "RemoveContentFromId")]
+        [HttpDelete("RemoveContentFromId")]
         public IActionResult RemoveContentFromId(string contentId) {
 
-            if (datiList != null)
+            if (datiList != null && datiList.data.contents.Any(r=>r.contentId==contentId))
             {
                 datiList.data.contents.RemoveAll(r => r.contentId == contentId);
                 return Ok(datiList);
@@ -45,5 +45,10 @@ namespace MinimalExerciseBackend.Controllers
             }
 
         }
+
+        
+          
+        
+
     }
 }
