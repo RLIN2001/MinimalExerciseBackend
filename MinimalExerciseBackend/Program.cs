@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+//builder.Services.AddScoped<Root>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,11 +27,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 
-var jsonFilePath = "MyData/data.json";
-var jsonContent = File.ReadAllText(jsonFilePath);
-
-
-Root datiList = JsonConvert.DeserializeObject<Root>(jsonContent);
 
 
 app.Run();

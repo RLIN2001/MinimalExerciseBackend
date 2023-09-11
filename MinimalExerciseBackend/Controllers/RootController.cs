@@ -1,36 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace MinimalExerciseBackend.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RootController : Controller
+    public class RootController : ControllerBase
     {
-        private readonly Root rootData;
+        private static readonly Root datiList = LoadData();
 
-        public RootController(Root datiList)
+        private static Root LoadData()
         {
-            this.rootData = datiList;
+            var jsonFilePath = "MyData/data.json";
+            var jsonContent = System.IO.File.ReadAllText(jsonFilePath);
+            Root data = JsonConvert.DeserializeObject<Root>(jsonContent);
+            return data;
         }
 
 
-
-
-        /*[HttpGet(Name = "GetRoot")]
-        public IEnumerable<Root> Get()
+        [HttpGet]
+        public IActionResult GetDatiList()
         {
-            return null;
-        }*/
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-            })
-            .ToArray();
+            if (datiList != null)
+                return Ok(datiList);
+            else
+                return NotFound();
         }
+
     }
 }
