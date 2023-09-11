@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using System.IO;
@@ -21,13 +22,28 @@ namespace MinimalExerciseBackend.Controllers
 
 
         [HttpGet]
-        public IActionResult GetDatiList()
+        public IActionResult GetAllData()
         {
+
             if (datiList != null)
                 return Ok(datiList);
             else
                 return NotFound();
         }
 
+        [HttpDelete]
+        public IActionResult RemoveContentFromId(string contentId) {
+
+            if (datiList != null)
+            {
+                datiList.data.contents.RemoveAll(r => r.contentId == contentId);
+                return Ok(datiList);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
     }
 }
