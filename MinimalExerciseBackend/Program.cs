@@ -1,3 +1,7 @@
+using MinimalExerciseBackend;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -21,5 +25,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+var jsonFilePath = "MyData/data.json";
+var jsonContent = File.ReadAllText(jsonFilePath);
+
+
+Root datiList = JsonConvert.DeserializeObject<Root>(jsonContent);
+
 
 app.Run();
