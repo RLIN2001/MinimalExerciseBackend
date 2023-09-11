@@ -21,7 +21,7 @@ namespace MinimalExerciseBackend.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet(Name = "GetAllData")]
         public IActionResult GetAllData()
         {
 
@@ -31,7 +31,7 @@ namespace MinimalExerciseBackend.Controllers
                 return NotFound();
         }
 
-        [HttpDelete]
+        [HttpDelete(Name = "RemoveContentFromId")]
         public IActionResult RemoveContentFromId(string contentId) {
 
             if (datiList != null)
