@@ -26,7 +26,7 @@ namespace MinimalExerciseBackend.Controllers
         {
 
             if (datiList != null)
-                return Ok(datiList);
+                return Ok(datiList.data.contents);
             else
                 return NotFound();
         }
