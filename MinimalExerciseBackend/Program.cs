@@ -38,7 +38,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseRouting();
 
 app.UseCors("AllowOrigin");
+
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 app.Run();

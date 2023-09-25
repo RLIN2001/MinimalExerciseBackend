@@ -21,20 +21,32 @@ namespace MinimalExerciseBackend.Controllers
         }
 
 
-        [HttpGet("GetAllData")]
-        public IActionResult GetAllData()
+        [HttpGet("GetData")]
+        public IActionResult GetData(string? title)
         {
 
             if (datiList != null)
-                return Ok(datiList.data.contents);
+
+                if (!string.IsNullOrEmpty(title))
+
+                {
+                    var filteredData = datiList.data.contents.Where(obj => obj.title.Contains(title)).ToArray();
+                    return Ok(filteredData);
+
+                }
+                else
+                    return Ok(datiList.data.contents);
+
+
             else
                 return NotFound();
         }
 
         [HttpDelete("RemoveContentFromId")]
-        public IActionResult RemoveContentFromId(string contentId) {
+        public IActionResult RemoveContentFromId(string contentId)
+        {
 
-            if (datiList != null && datiList.data.contents.Any(r=>r.contentId==contentId))
+            if (datiList != null && datiList.data.contents.Any(r => r.contentId == contentId))
             {
                 datiList.data.contents.RemoveAll(r => r.contentId == contentId);
 
@@ -45,11 +57,12 @@ namespace MinimalExerciseBackend.Controllers
                 return NotFound();
             }
 
+
         }
+    }
 
         
           
         
 
     }
-}
